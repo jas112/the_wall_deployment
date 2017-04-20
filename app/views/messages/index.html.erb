@@ -1,0 +1,30 @@
+<%= content_for :middle do %>
+<div class="header">
+  <h2>Welcome, <%= @user.first_name %></h2>
+  <a href="/logout"><button type="button" name="logout">Logout</button></a>
+</div>
+<h1>Post a Message</h1>
+<% if flash[:errors] %>
+  <% flash[:errors].each do |e| %>
+    <p id="error"><%= e %></p>
+  <% end %>
+<% end %>
+<% if flash[:notice] %>
+  <p><%= flash[:notice] %></p>
+<% end %>
+<form action = "/messages" method = "post">
+  <input type = 'hidden' name = "authenticity_token" value = "<%=form_authenticity_token%>">
+  <textarea name="message[message]" rows="8" cols="80"></textarea>
+  <input type = "submit" value = "Post a Message">
+</form>
+<div id="message_display">
+  <% @messages.reverse.each do |m| %>
+    <div class="message_holder">
+      <p><h3><%= m.message%></h3></p>
+      <p><span style="color: red;font-weight: bold;"><%= m.user.first_name%> <%= m.user.last_name%></span> <%= m.created_at%></p>
+      <p><%= m.comments.count %> Comment(s)</p>
+      <a href="/messages/<%= m.id %>">Make a Comment</a>
+    </div>
+  <% end %>
+</div>
+<% end %>

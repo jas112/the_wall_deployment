@@ -1,0 +1,15 @@
+<%= content_for :middle do %>
+<h1>Login to Post Messages</h1>
+<% if flash[:errors] %>
+  <% flash[:errors].each do |e| %>
+    <p id="error"><%= e %></p>
+  <% end %>
+<% end %>
+<form action = "/login" method = "post">
+  <input type = 'hidden' name = "authenticity_token" value = "<%=form_authenticity_token%>">
+  <label>Email Address</label>
+  <input type="text" name="login[email]" id = "login_email">
+  <input type = "submit" value = "Login">
+</form>
+<h2>Register <a href="/users/new">Here</a></h2>
+<% end %>
